@@ -3,14 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login as apiLogin } from "@/lib/api"; // renomeado para evitar conflito
-import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const router = useRouter();
-  const { login } = useAuth(); // usando a função do hook
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -18,7 +16,6 @@ export default function LoginPage() {
 
     try {
       await apiLogin(email, senha);
-      login(); // Chama a função do hook que atualiza o estado
       router.push("/empresa/listar");
     } catch {
       setErro("Email ou senha inválidos");

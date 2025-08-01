@@ -2,29 +2,12 @@
 
 import "./globals.css";
 import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { logado } = useAuth();
-
-  function logout() {
-    localStorage.removeItem("auth_session");
-    document.cookie = "access_token=; Max-Age=0; path=/;";
-    window.location.href = "/login";
-  }
-
-  if (logado === null) {
-    return (
-      <html>
-        <body></body>
-      </html>
-    );
-  }
-
   return (
     <html lang="pt-br">
       <head></head>
@@ -33,33 +16,12 @@ export default function RootLayout({
           <div className="container mx-auto flex justify-between items-center">
             <h1 className="font-bold text-xl">Cadastro Empresas</h1>
             <nav className="flex gap-4 items-center">
-              {!logado && (
-                <>
-                  <Link href="/login" className="hover:underline">
-                    Login
-                  </Link>
-                  <Link href="/registrar" className="hover:underline">
-                    Registrar
-                  </Link>
-                </>
-              )}
-
-              {logado && (
-                <>
-                  <Link href="/empresa/cadastrar" className="hover:underline">
-                    Cadastrar Empresa
-                  </Link>
-                  <Link href="/empresa/listar" className="hover:underline">
-                    Listar Empresas
-                  </Link>
-                  <button
-                    onClick={logout}
-                    className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-white"
-                  >
-                    Sair
-                  </button>
-                </>
-              )}
+              <Link href="/login" className="hover:underline">
+                Login
+              </Link>
+              <Link href="/registrar" className="hover:underline">
+                Registrar
+              </Link>
             </nav>
           </div>
         </header>
