@@ -1,7 +1,7 @@
 export async function login(email: string, senha: string) {
   const res = await fetch("https://localhost:7201/login", {
     method: "POST",
-    credentials: "include", // necessário para enviar/receber cookies HTTP-only
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, senha }),
   });
